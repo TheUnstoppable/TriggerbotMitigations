@@ -7,7 +7,7 @@
 TriggerbotMitigations is an SSGM plugin (compatible with Dragonade) that aims to stop generic and some memory-based trigger bots using offered engine functions.
 
 ## Installation
-- Grab the plugin files from Jenkins, and extract the file into the server folder.
+- Grab the plugin files from [Jenkins](https://ci.unstoppable.work/job/SSGM%20Plugins/job/TriggerbotMitigations/), and extract the file into the server folder.
 - Add the plugin name under \[Plugins\] section.
   - For SSGM: `99=TriggerbotMitigations.dll` (replace 99 with the next number in the list)
   - For Dragonade: `TriggerbotMitigations.dll=1`

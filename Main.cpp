@@ -77,7 +77,8 @@ void TriggerbotMitigationsPlugin::OnLoadMapINISettings(INIClass *SSGMIni) {
 	MinColorThreshold = (float)atof(first);
 	MaxColorThreshold = (float)atof(second);
 
-	if (INIClass* exceptionsINI = Get_INI("MitigationExceptions.ini")) {
+	RawFileClass file("MitigationExceptions.ini");
+	if (INIClass* exceptionsINI = new INIClass(file)) {
 		if (INISection* section = exceptionsINI->Find_Section("Exceptions")) {
 			for(INIEntry* entry = section->EntryList.First(); entry && entry->Is_Valid(); entry = entry->Next()) {
 				MitigationExceptions.Insert(entry->Entry, (MitigationLevel)atoi(entry->Value));
@@ -91,8 +92,6 @@ void TriggerbotMitigationsPlugin::OnFreeMapData() {
 	Level = MITIGATION_OFF;
 	MinColorThreshold = 20.f;
 	MaxColorThreshold = 80.f;
-
-	Flush_Mitigation_Exceptions();
 }
 
 void TriggerbotMitigationsPlugin::OnLoadLevel() {
@@ -157,8 +156,8 @@ void TriggerbotMitigationsPlugin::Remove_Mitigation_Exception(const char* Player
 
 bool TriggerbotMitigationsPlugin::Flush_Mitigation_Exceptions() {
 	RawFileClass file("MitigationExceptions.ini");
-	INIClass exceptionsINI(file);
 	if (file.Open(2)) {
+		INIClass exceptionsINI;
 		for (HashTemplateIterator<StringClass, MitigationLevel> it(MitigationExceptions); it; ++it) {
 			exceptionsINI.Put_Int("Exceptions", it.getKey(), it.getValue(), 0);
 		}

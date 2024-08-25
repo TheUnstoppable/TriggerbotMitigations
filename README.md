@@ -40,8 +40,9 @@ Mitigation type can be changed globally (see [Installation](#installation) secti
 The plugin automatically drops and maintains a file named `MitigationExceptions.ini` to override the global setting and apply mitigation exceptions for players included in the file.
 
 ### Console Commands
-- `addmitigationexception <player id> <level>` adds a mitigation exception for specified player. `<level>` is a value between 0 - 5, where 0 is "Off" and 5 is "Aggressive".
-- `removemitigationexception <player id>` removes the mitigation exception for specified player.
+- `addmitigationexception <player name> <level>` adds a mitigation exception for specified player. `<level>` is a value between 0 - 5, where 0 is "Off" and 5 is "Aggressive".
+- `removemitigationexception <player name>` removes the mitigation exception for specified player.
+- `printmitigationexceptions` prints all mitigation exceptions in the memory to the console.
 - `flushmitigationexceptions` ensures that all mitigation exceptions are written to the file.
 
 ## Support

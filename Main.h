@@ -56,7 +56,7 @@ class AddMitigationExceptionConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	const char* Get_Name() override { return "addmitigationexception"; }
 	const char* Get_Alias() override { return "ame"; }
-	const char* Get_Help() override { return "ADDMITIGATIONEXCEPTION <id> <level> - Adds a custom mitigation exception for specified player."; }
+	const char* Get_Help() override { return "ADDMITIGATIONEXCEPTION <name> <level> - Adds a custom mitigation exception for specified player."; }
 	void Activate(const char* pArgs) override;
 };
 
@@ -64,7 +64,7 @@ class RemoveMitigationExceptionConsoleFunctionClass : public ConsoleFunctionClas
 public:
 	const char* Get_Name() override { return "removemitigationexception"; }
 	const char* Get_Alias() override { return "rme"; }
-	const char* Get_Help() override { return "REMOVEMITIGATIONEXCEPTION <id> - Removes the custom mitigation exception for specified player."; }
+	const char* Get_Help() override { return "REMOVEMITIGATIONEXCEPTION <name> - Removes the custom mitigation exception for specified player."; }
 	void Activate(const char* pArgs) override;
 };
 

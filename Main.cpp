@@ -242,30 +242,37 @@ extern "C" __declspec(dllexport) Plugin * Plugin_Init()
 /***************************************************************************/
 
 void AddMitigationExceptionConsoleFunctionClass::Activate(const char* pArgs) {
-	long pId = atoi(pArgs);
-	pArgs = strchr(pArgs, ' ');
-	if (!pId || !pArgs || !(++pArgs))
+	if (!pArgs)
 	{
 		return;
 	}
-	;
-	long mLvl = atoi(pArgs);
 
-	cPlayer* player = Find_Player(pId);
-	if (!player) {
-		Console_Output("Specified client identifier was not valid.\n");
+	const char* pNameBuf = pArgs;
+	pArgs = strchr(pArgs, ' ');
+	if (!pArgs)
+	{
 		return;
 	}
 
-	if (mLvl >= MITIGATION_MAX && mLvl < 0) {
+	char* pName = new char[pArgs - pNameBuf + 1];
+	memcpy(pName, pNameBuf, pArgs - pNameBuf);
+	pName[pArgs - pNameBuf] = 0;
+
+	if (!(++pArgs))
+	{
+		return;
+	}
+
+	long mLvl = atoi(pArgs);
+
+	if (mLvl >= MITIGATION_MAX || mLvl < 0) {
 		Console_Output("Specified level value is invalid. Enter between 0 - 5.\n");
 		return;
 	}
 
-	const char* buf = WideCharToChar(player->Get_Name());
-	plugin.Add_Mitigation_Exception(buf, (MitigationLevel)mLvl);
-	Console_Output("%s has been added to the exception list.\n", buf);
-	delete[] buf;
+	plugin.Add_Mitigation_Exception(pName, (MitigationLevel)mLvl);
+	Console_Output("%s has been added to the exception list.\n", pName);
+	delete[] pName;
 }
 
 /***************************************************************************/

@@ -38,6 +38,8 @@ public:
 	void Reset_Mitigations(int PlayerID);
 	void Apply_Mitigation(int PlayerID);
 
+	HashTemplateClass<StringClass, MitigationLevel>& Get_Mitigation_Exceptions() { return MitigationExceptions; }
+
 private:
 	// Configuration
 	MitigationLevel Level;
@@ -63,6 +65,14 @@ public:
 	const char* Get_Name() override { return "removemitigationexception"; }
 	const char* Get_Alias() override { return "rme"; }
 	const char* Get_Help() override { return "REMOVEMITIGATIONEXCEPTION <id> - Removes the custom mitigation exception for specified player."; }
+	void Activate(const char* pArgs) override;
+};
+
+class PrintMitigationExceptionsConsoleFunctionClass : public ConsoleFunctionClass {
+public:
+	const char* Get_Name() override { return "printmitigationexceptions"; }
+	const char* Get_Alias() override { return "pme"; }
+	const char* Get_Help() override { return "PRINTMITIGATIONEXCEPTIONS - Prints all the mitigation exceptions in the memory."; }
 	void Activate(const char* pArgs) override;
 };
 

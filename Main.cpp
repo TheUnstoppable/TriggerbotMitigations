@@ -19,8 +19,7 @@
 #define COLOR_FRIENDLY .0f, .88235294f, .0f
 #define COLOR_NEUTRAL .49019607f, .58823529f, .49019607f
 
-TriggerbotMitigationsPlugin::TriggerbotMitigationsPlugin() : Level(MITIGATION_OFF), MinColorThreshold(20.f), MaxColorThreshold(80.f)
-{
+TriggerbotMitigationsPlugin::TriggerbotMitigationsPlugin() : Level(MITIGATION_OFF), MinColorThreshold(20.f), MaxColorThreshold(80.f) {
 	RegisterEvent(EVENT_MAP_INI,this);
 	RegisterEvent(EVENT_LOAD_LEVEL_HOOK,this);
 	RegisterEvent(EVENT_PLAYER_JOIN_HOOK,this);
@@ -28,13 +27,13 @@ TriggerbotMitigationsPlugin::TriggerbotMitigationsPlugin() : Level(MITIGATION_OF
 
 	ConsoleFunctionList.Add(new AddMitigationExceptionConsoleFunctionClass);
 	ConsoleFunctionList.Add(new RemoveMitigationExceptionConsoleFunctionClass);
+	ConsoleFunctionList.Add(new PrintMitigationExceptionsConsoleFunctionClass);
 	ConsoleFunctionList.Add(new FlushMitigationExceptionsConsoleFunctionClass);
 	Sort_Function_List();
 	Verbose_Help_File();
 }
 
-TriggerbotMitigationsPlugin::~TriggerbotMitigationsPlugin()
-{
+TriggerbotMitigationsPlugin::~TriggerbotMitigationsPlugin() {
 	UnregisterEvent(EVENT_MAP_INI,this);
 	UnregisterEvent(EVENT_LOAD_LEVEL_HOOK,this);
 	UnregisterEvent(EVENT_PLAYER_JOIN_HOOK,this);
@@ -42,11 +41,11 @@ TriggerbotMitigationsPlugin::~TriggerbotMitigationsPlugin()
 
 	Delete_Console_Function("addmitigationexception");
 	Delete_Console_Function("removemitigationexception");
+	Delete_Console_Function("printmitigationexceptions");
 	Delete_Console_Function("flushmitigationexceptions");
 }
 
-void TriggerbotMitigationsPlugin::OnLoadMapINISettings(INIClass *SSGMIni)
-{
+void TriggerbotMitigationsPlugin::OnLoadMapINISettings(INIClass *SSGMIni) {
 	StringClass mitigationLevel;
 	SSGMIni->Get_String(mitigationLevel, "General", "MitigationLevel", "Off");
 	if (!mitigationLevel.Compare_No_Case("Aggressive")) {
@@ -278,6 +277,16 @@ void RemoveMitigationExceptionConsoleFunctionClass::Activate(const char* pArgs) 
 
 	plugin.Remove_Mitigation_Exception(pArgs);
 	Console_Output("%s has been removed from the exception list.\n", pArgs);
+}
+
+/***************************************************************************/
+
+void PrintMitigationExceptionsConsoleFunctionClass::Activate(const char* pArgs) {
+	Console_Output("Begin Mitigation Exceptions:\n");
+	for (HashTemplateIterator<StringClass, MitigationLevel> it(plugin.Get_Mitigation_Exceptions()); it; ++it) {
+		Console_Output("%s: %d\n", it.getKey(), it.getValue());
+	}
+	Console_Output("End of Mitigation Exceptions\n");
 }
 
 /***************************************************************************/

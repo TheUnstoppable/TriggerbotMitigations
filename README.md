@@ -13,7 +13,7 @@ TriggerbotMitigations is an SSGM plugin (compatible with Dragonade) that aims to
   - For Dragonade: `TriggerbotMitigations.dll=1`
 - Add the following lines in either ssgm.ini (for SSGM) or da.ini (for Dragonade).
    ```
-   ; MitigationType=
+   ; MitigationLevel=
    ; 
    ;  The default mitigation type to apply to all players. Valid values are:
    ;  "Off": Does not change anything.
@@ -23,7 +23,7 @@ TriggerbotMitigations is an SSGM plugin (compatible with Dragonade) that aims to
    ;  "High": Replaces friendly unit and neutral reticle colors with enemy unit reticle color.
    ;  "Aggressive": Disables targeting objects except for buildings and pokable objects.
    
-   MitigationType=Off
+   MitigationLevel=Off
    
    
    ; ColorThreshold=
